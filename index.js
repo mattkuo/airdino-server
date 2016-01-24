@@ -6,6 +6,29 @@ var playerMapping = {};
 var currentSockId;
 
 // Listen for player connect
+
+// TODO: Namspace stuff
+// var clientNamespace = io.of('/clients');
+// var mobileNamespace = io.of('/mobile');
+//
+// clientNamespace.on('connect', function(socket) {
+//   console.log('A client has connected');
+//
+// });
+//
+//
+// mobileNamespace.on('connect', function(socket) {
+//   console.log('A mobile has connected');
+//
+//   // TODO: Implement speed controls
+//   socket.on('speed', function(id, msg)) {
+//
+//   }
+//
+//
+// });
+
+
 io.on('connect', function(socket) {
   console.log('client connected');
 
@@ -25,14 +48,19 @@ io.on('connect', function(socket) {
     playerMapping[currentSockId]['mobile'] = socket;
     // Listen for gyrometer reading
     socket.on('gyro', function(reading) {
-      var client = playerMapping[currentSockId].socket;
-      client.broadcast.to(currentSockId).emit('gyro', {
+      io.emit('gyro', {
         beta: reading.beta,
         gamma: reading.gamma,
         alpha: reading.alpha
       });
       console.log("beta: " + reading.beta + " gamma: " + reading.gamma + " alpha: " + reading.alpha);
     });
+
+    socket.on('speed', function(speed) {
+      io.emit('speed', speed);
+      console.log('Speed changed to: ' + speed);
+    });
+
     switchClientWeb();
   }
 
