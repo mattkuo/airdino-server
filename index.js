@@ -57,7 +57,7 @@ io.on('connect', function(socket) {
     });
 
     socket.on('speed', function(speed) {
-      io.emit('speed', speed);
+      io.emit('speed', {speed: speed});
       console.log('Speed changed to: ' + speed);
     });
 
