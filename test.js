@@ -1,4 +1,4 @@
-var sockets = require('socket.io-client')('http://localhost:7777');
+var sockets = require('socket.io-client')('http://45.79.134.17:7777');
 
 sockets.on('connect', function() {
   console.log("client connected");

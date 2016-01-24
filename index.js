@@ -1,7 +1,8 @@
 var io = require('socket.io')();
 
 io.on('connect', function(socket) {
-  socket.send('hi');
+  console.log('client connected');
+  socket.emit('hello_world', {hello: 'world'});
 
   socket.on('client_message', function(msg) {
     console.log("Received client message");
