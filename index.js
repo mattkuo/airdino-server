@@ -1,11 +1,12 @@
 var io = require('socket.io')();
 
-io.attach(9999);
-
 io.on('connect', function(socket) {
   socket.send('hi');
 
-  socket.on('message', function(msg) {
+  socket.on('client_message', function(msg) {
+    console.log("Received client message");
     socket.send('Reply: ' + msg);
   });
 });
+
+io.listen(7777);
