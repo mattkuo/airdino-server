@@ -4,9 +4,8 @@ io.on('connect', function(socket) {
   console.log('client connected');
   socket.emit('hello_world', {hello: 'world'});
 
-  socket.on('client_message', function(msg) {
-    console.log("Received client message");
-    socket.send('Reply: ' + msg);
+  socket.on('gyro', function(reading) {
+    console.log("beta: " + reading.beta + " gamma: " + reading.gamma + " alpha: " + reading.alpha);
   });
 });
 
